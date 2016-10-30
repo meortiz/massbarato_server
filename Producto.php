@@ -14,16 +14,16 @@ class Producto {
     
     public static function getForMarcaAndPresentacion($marca,$presentacion){
     	$sql = "SELECT * FROM producto 
-    			JOIN marca M 
-    				ON producto.idmarcap = M.idmarca
-    			JOIN presentacion U
-    				ON producto.idpresentacionp = U.idpresentacion
-    			JOIN supermercado S
-    				ON producto.idsupermercadop = S.idsupermercado
+				JOIN marca M 
+    				ON producto.marca_codigo = M.marca_codigo
+    			JOIN presentacion P
+    				ON producto.presentacion_codigo = P.presentacion_codigo
+    			JOIN cliente C
+    				ON producto.cliente_codigo = C.cliente_codigo
 				WHERE 
-					UPPER(M.nommarca) LIKE UPPER('%$marca%') 
+					UPPER(M.marca_nombre) LIKE UPPER('%$marca%') 
 					AND 
-					UPPER(U.unida) LIKE UPPER('%$presentacion%')";
+					UPPER(P.presentacion_nombre) LIKE UPPER('%$presentacion%')";
 
     	$response = self::executeSqlConverterToArray($sql);
 		return self::printResponseInJsonEncode($response);
@@ -33,11 +33,11 @@ class Producto {
 	public static function getAll(){
 		$sql = "SELECT * FROM producto 
 				JOIN marca M 
-    				ON producto.idmarcap = M.idmarca
-    			JOIN presentacion U
-    				ON producto.idpresentacionp = U.idpresentacion
-    			JOIN supermercado S
-    				ON producto.idsupermercadop = S.idsupermercado";
+    				ON producto.marca_codigo = M.marca_codigo
+    			JOIN presentacion P
+    				ON producto.presentacion_codigo = P.presentacion_codigo
+    			JOIN cliente C
+    				ON producto.cliente_codigo = C.cliente_codigo";
 		$response = self::executeSqlConverterToArray($sql);
 		return self::printResponseInJsonEncode($response); 
 	}
@@ -60,7 +60,7 @@ class Producto {
 	}
 
 	private static function createConnectionDataBase(){
-		$conectar='host=localhost user=postgres password=kaoz1993 port=5432 dbname=Masbarato';
+		$conectar='host=localhost user=postgres password=kaoz1993 port=5432 dbname=cm_massbarato';
 		$cadena= pg_connect ($conectar) or die ("Error de conexion".pg_last_error());
 		return $cadena;
 	}

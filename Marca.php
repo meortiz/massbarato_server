@@ -26,7 +26,7 @@ class Marca {
 	}
 
 	private static function createConnectionDataBase(){
-		$conectar='host=localhost user=postgres password=kaoz1993 port=5432 dbname=Masbarato';
+		$conectar='host=localhost user=postgres password=kaoz1993 port=5432 dbname=cm_massbarato';
 		$cadena= pg_connect ($conectar) or die ("Error de conexion".pg_last_error());
 		return $cadena;
 	}
