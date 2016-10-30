@@ -15,7 +15,7 @@ class Presentacion
 
 	
 	public static function getAll(){
-		$sql = "SELECT DISTINCT unida FROM presentacion";
+		$sql = "SELECT DISTINCT presentacion_nombre FROM presentacion";
 		$response = self::executeSqlConverterToArray($sql);
 		return self::printResponseInJsonEncode($response); 
 	}
