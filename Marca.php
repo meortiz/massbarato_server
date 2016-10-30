@@ -14,7 +14,7 @@ class Marca {
 
 	
 	public static function getAll(){
-		$sql = "SELECT DISTINCT nomMarca FROM marca";
+		$sql = "SELECT DISTINCT marca_nombre FROM marca";
 		$response = self::executeSqlConverterToArray($sql);
 		return self::printResponseInJsonEncode($response); 
 	}
