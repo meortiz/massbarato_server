@@ -3,8 +3,6 @@
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set("display_errors", 1);
 
-
-require 'Modelo.php';
 /**
 * 
 */
@@ -101,6 +99,8 @@ class Producto extends Modelo{
 
 	public static function getBy($row,$data){
 		$sql = "SELECT * FROM producto
+				JOIN tipo T
+					ON producto.tipo_codigo = T.tipo_codigo
 				JOIN marca M 
     				ON producto.marca_codigo = M.marca_codigo
     			JOIN presentacion P

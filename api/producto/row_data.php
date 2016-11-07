@@ -4,6 +4,7 @@ error_reporting(-1);
 ini_set("display_errors", 1);
 header('Content-Type: charset=utf-8');
 
+include  '../../Modelo/Modelo.php';
 require "../../Modelo/Producto.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
      // validamos si retorno datos
     if ($productos) {
         $datos["estado"] = 1;
-        $datos["productos"] = $productos;
+        $datos["Productos"] = $productos;
         print json_encode($datos);
     } 
     else {

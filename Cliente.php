@@ -27,6 +27,7 @@ class Cliente {
 	{
 		$suma = 0;
 		$canasta = self::llenarCanasta($cliente,$productos);
+		//echo "\n".$cliente." ****** \n ".var_dump($productos);
 
 		$productosEnLaCanasta = sizeof($canasta);
 		$productosEnLaLista = sizeof($productos);
@@ -38,6 +39,25 @@ class Cliente {
 		}
 		return self::printResponseInJsonEncode($response); 
 	}
+
+	public static function buscarMercadoCompleto($productos)
+	{
+		$clientes = json_decode(self::getAll());
+		$mercados = array();
+		foreach ($clientes as $key => $cliente) {
+			$iteraciones++;
+			$mercado = json_decode(self::hacerMercadoCompleto(
+				$cliente->cliente_nombre,
+				$productos));
+			if ($mercado != null) {
+				//echo var_dump($mercado);
+				$mercados[]=$mercado;
+			}
+		}
+		return self::printResponseInJsonEncode($mercados); 
+	}
+
+	
 
 	private static function llenarCanasta($cliente,$productos)
 	{
@@ -102,7 +122,7 @@ class Cliente {
 
 
 	private static function printResponseInJsonEncode($response){
-		if ($response) {
+		if ($response != null) {
 			return json_encode($response);
 		}else{
 			self::nullResponse();

@@ -5,24 +5,22 @@ ini_set("display_errors", 1);
 header('Content-Type: charset=utf-8');
 
 include  '../../Modelo/Modelo.php';
-require "../../Modelo/Producto.php";
+require "../../Cliente.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $productos = null;
+    $mercados = null;
     
-    // Manejar petición GET
-    if ( isset($_GET['nombre'])
-         AND isset($_GET['marca']) 
-         AND isset($_GET['presentacion'])
-         AND isset($_GET['cliente'])) {
+    /** Manejar petición GET
+        URL.php?cliente=xxx?
+            ?productos[][nombre]=xxxx
+            ?productos[][marca]=xxx
+            ?productos[][presentacion]=xxx
+            ?productos[][nombre]...
+    */
+    if (isset($_GET['productos'])) {
         
-        $productos = Producto::getForMarcaAndPresentacionAndCliente(
-                $_GET['nombre'],
-                $_GET['marca'],
-                $_GET['presentacion'],
-                $_GET['cliente']);
+        $mercados=json_decode(Cliente::buscarMercadoCompleto($_GET['productos']));
 
-        $productos=json_decode($productos);        
     }
     else {
         print json_encode(array(
@@ -33,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
      }
 
      // validamos si retorno datos
-    if ($productos) {
+    if ($mercados) {
         $datos["estado"] = 1;
-        $datos["productos"] = $productos;
+        $datos["mercados"] = $mercados;
         print json_encode($datos);
     } 
     else {

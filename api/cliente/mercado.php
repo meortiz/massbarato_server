@@ -4,6 +4,7 @@ error_reporting(-1);
 ini_set("display_errors", 1);
 header('Content-Type: charset=utf-8');
 
+include  '../../Modelo/Modelo.php';
 require "../../Cliente.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
